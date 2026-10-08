@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+  <title id="title">Annotated CodeStation resource indicators</title>
+  <desc id="desc">A VS Code status bar with arrows explaining CPU, RAM, and disk usage values.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#1677d2"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1200" height="470" fill="#f7f8fa"/>
+  <text x="54" y="48" fill="#242424" font-family="Arial, sans-serif" font-size="24" font-weight="700">CodeStation resource indicators</text>
+  <text x="54" y="75" fill="#616161" font-family="Arial, sans-serif" font-size="15">Live container usage shown in the VS Code status bar</text>
+
+  <g filter="url(#shadow)">
+    <rect x="54" y="178" width="1092" height="58" rx="5" fill="#ffffff" stroke="#d6d9de"/>
+    <rect x="640" y="179" width="1" height="56" fill="#e4e6e9"/>
+    <rect x="806" y="179" width="1" height="56" fill="#e4e6e9"/>
+    <rect x="966" y="179" width="1" height="56" fill="#e4e6e9"/>
+    <text x="80" y="214" fill="#767676" font-family="Arial, sans-serif" font-size="15">Problems  0   Output   Terminal</text>
+    <g fill="#2f3337" font-family="Arial, sans-serif" font-size="18" font-weight="600">
+      <text x="666" y="214">▣  5.5/6.5 CPU</text>
+      <text x="831" y="214">▤  0.6/8G</text>
+      <text x="991" y="214">▰  4/6G</text>
+    </g>
+  </g>
+
+  <g font-family="Arial, sans-serif">
+    <rect x="82" y="294" width="300" height="112" rx="9" fill="#ffffff" stroke="#cfd5dc"/>
+    <text x="104" y="326" fill="#1677d2" font-size="14" font-weight="700">CPU</text>
+    <text x="104" y="353" fill="#242424" font-size="17" font-weight="700">Used cores / allocated cores</text>
+    <text x="104" y="381" fill="#616161" font-size="14">Measured from cgroup CPU accounting</text>
+    <path d="M235 294C350 260 555 251 716 222" fill="none" stroke="#1677d2" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <rect x="450" y="294" width="300" height="112" rx="9" fill="#ffffff" stroke="#cfd5dc"/>
+    <text x="472" y="326" fill="#1677d2" font-size="14" font-weight="700">RAM</text>
+    <text x="472" y="353" fill="#242424" font-size="17" font-weight="700">Used memory / cgroup limit</text>
+    <text x="472" y="381" fill="#616161" font-size="14">Displayed in compact GiB units</text>
+    <path d="M600 294C680 259 775 247 876 222" fill="none" stroke="#1677d2" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <rect x="818" y="294" width="300" height="112" rx="9" fill="#ffffff" stroke="#cfd5dc"/>
+    <text x="840" y="326" fill="#1677d2" font-size="14" font-weight="700">DISK</text>
+    <text x="840" y="353" fill="#242424" font-size="17" font-weight="700">Used space / filesystem total</text>
+    <text x="840" y="381" fill="#616161" font-size="14">Read from the configured workspace path</text>
+    <path d="M968 294C1003 259 1032 244 1043 222" fill="none" stroke="#1677d2" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+</svg>

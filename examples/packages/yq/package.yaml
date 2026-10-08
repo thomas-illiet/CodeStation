@@ -1,0 +1,14 @@
+schemaVersion: 1
+namespace: core
+name: yq
+version: 4.54.1
+summary: Install yq
+description: Installs the official yq binary with a pinned digest.
+publisher: CodeStation
+categories: [CLI]
+targets: [linux-amd64, linux-arm64, windows-amd64]
+tofuConstraint: ">= 1.8.0"
+module: main.tf
+readme: README.md
+icon: icon.svg
+sensitiveCapabilities: [network]

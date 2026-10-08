@@ -1,0 +1,51 @@
+name: codestation-demo
+
+services:
+  registry:
+    build:
+      context: ../registry
+    environment:
+      CODESTATION_LISTEN: :8080
+      CODESTATION_DATA: /data
+      CODESTATION_METADATA_PROVIDER: sqlite
+      CODESTATION_OBJECT_STORAGE_PROVIDER: local
+      CODESTATION_ADMIN_TOKEN: ${CODESTATION_ADMIN_TOKEN:?set CODESTATION_ADMIN_TOKEN}
+      CODESTATION_SIGNING_KEY_ID: demo-2026
+      CODESTATION_SIGNING_PRIVATE_KEY_FILE: /run/codestation/demo-signing-private.pem
+    volumes:
+      - registry-data:/data
+      - ./keys/demo-signing-private.pem:/run/codestation/demo-signing-private.pem:ro
+    ports:
+      - "127.0.0.1:${REGISTRY_PORT:-8081}:8080"
+    restart: unless-stopped
+    # The internal backend network keeps service-to-service traffic isolated.
+    # The frontend network is also required for Docker Desktop to activate the
+    # loopback-only published port below.
+    networks: [backend, frontend]
+
+  code-server:
+    build:
+      context: ..
+      dockerfile: demo/code-server.Dockerfile
+      args:
+        CODE_SERVER_VERSION: "4.140.0"
+    environment:
+      CODESTATION_REGISTRY_URL: http://registry:8080
+    volumes:
+      - code-home:/home/coder
+    ports:
+      - "127.0.0.1:${CODE_SERVER_PORT:-8080}:8080"
+    depends_on:
+      registry:
+        condition: service_started
+    restart: unless-stopped
+    networks: [backend, frontend]
+
+volumes:
+  registry-data:
+  code-home:
+
+networks:
+  backend:
+    internal: true
+  frontend:

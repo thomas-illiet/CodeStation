@@ -1,0 +1,210 @@
+{
+  "name": "codestation",
+  "displayName": "CodeStation",
+  "description": "Enterprise meta-extension for tools, documentation, resources, and OpenTofu packages.",
+  "version": "1.0.0",
+  "publisher": "codestation",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:containerResourceMonitor.refresh",
+    "onView:codestation.home"
+  ],
+  "main": "./dist/extension.js",
+  "files": [
+    "dist",
+    "docs",
+    "media",
+    "bin",
+    "providers",
+    "keys"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codestation",
+          "title": "CodeStation",
+          "icon": "media/codestation.svg"
+        }
+      ]
+    },
+    "views": {
+      "codestation": [
+        {
+          "id": "codestation.home",
+          "name": "CodeStation",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "containerResourceMonitor.refresh",
+        "title": "Container Resources: Refresh"
+      },
+      {
+        "command": "codestation.openDocumentation",
+        "title": "CodeStation: Open documentation"
+      },
+      {
+        "command": "codestation.configureHttpProxy",
+        "title": "CodeStation: Configure HTTP proxy"
+      },
+      {
+        "command": "codestation.clearHttpProxy",
+        "title": "CodeStation: Remove proxy configuration"
+      },
+      {
+        "command": "codestation.testHttpProxy",
+        "title": "CodeStation: Test HTTP proxy"
+      },
+      {
+        "command": "codestation.testPort",
+        "title": "CodeStation: Test TCP port"
+      },
+      {
+        "command": "codestation.workspaceStorageUsage",
+        "title": "CodeStation: Workspace storage usage"
+      },
+      {
+        "command": "codestation.reloadWindow",
+        "title": "CodeStation: Reload VS Code window"
+      },
+      {
+        "command": "codestation.restartCodeServer",
+        "title": "CodeStation: Restart code-server"
+      },
+      {
+        "command": "codestation.back",
+        "title": "CodeStation: Back to home",
+        "icon": "$(arrow-left)"
+      },
+      {
+        "command": "codestation.openAbout",
+        "title": "CodeStation: About this Code Station"
+      },
+      {
+        "command": "codestation.open",
+        "title": "CodeStation: Open Packages"
+      },
+      {
+        "command": "codestation.refresh",
+        "title": "CodeStation Packages: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "codestation.showInstalled",
+        "title": "CodeStation Packages: Show Installed"
+      },
+      {
+        "command": "codestation.showOperations",
+        "title": "CodeStation Packages: Show Operations"
+      }
+    ],
+    "configuration": {
+      "title": "CodeStation",
+      "properties": {
+        "codestation.usefulLinks": {
+          "type": "array",
+          "default": [
+            {
+              "label": "CodeStation Packages Registry",
+              "url": "http://127.0.0.1:8081/v1/packages",
+              "icon": "▦",
+              "category": "Development"
+            }
+          ],
+          "description": "Useful internal links displayed by CodeStation.",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "url"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "icon": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "containerResourceMonitor.refreshIntervalSeconds": {
+          "type": "number",
+          "default": 10,
+          "minimum": 5,
+          "maximum": 60,
+          "description": "Resource metrics refresh interval while the VS Code window is focused."
+        },
+        "containerResourceMonitor.diskPath": {
+          "type": "string",
+          "default": "/home/coder",
+          "description": "Path used for disk space measurements."
+        },
+        "containerResourceMonitor.memoryWarningRemainingPercent": {
+          "type": "number",
+          "default": 10,
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Remaining memory threshold below which the indicator turns red."
+        },
+        "codestation.registryUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:8080",
+          "description": "Internal CodeStation package registry URL."
+        },
+        "codestation.proxyTestUrl": {
+          "type": "string",
+          "default": "https://example.com/",
+          "description": "Outbound URL whose host is used to test the configured HTTP proxy."
+        },
+        "codestation.logRetentionDays": {
+          "type": "number",
+          "default": 30,
+          "minimum": 1,
+          "maximum": 365
+        },
+        "codestation.maxLogSizeMiB": {
+          "type": "number",
+          "default": 20,
+          "minimum": 1,
+          "maximum": 200
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "esbuild src/extension.ts --bundle --platform=node --external:vscode --outfile=dist/extension.js",
+    "check": "tsc --noEmit",
+    "test": "tsx --test src/features/**/*.test.ts",
+    "package": "npm run check && npm run test && npm run build && vsce package --no-dependencies --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.25.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.0"
+  },
+  "dependencies": {
+    "@types/markdown-it": "^14.2.0",
+    "markdown-it": "^15.0.2"
+  }
+}

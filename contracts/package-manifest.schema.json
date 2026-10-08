@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://codestation.internal/schemas/package-manifest-v1.json",
+  "title": "CodeStation Packages package manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "namespace", "name", "version", "summary", "description", "publisher", "categories", "platforms", "architectures", "targets", "tofuConstraint", "module", "readme", "icon", "archive", "files", "signature"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "namespace": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}$" },
+    "name": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}$" },
+    "version": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?$" },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 140 },
+    "description": { "type": "string", "minLength": 1, "maxLength": 4000 },
+    "publisher": { "type": "string", "minLength": 1, "maxLength": 100 },
+    "categories": { "type": "array", "maxItems": 20, "items": { "type": "string", "maxLength": 40 }, "uniqueItems": true },
+    "platforms": { "type": "array", "items": { "enum": ["linux", "windows"] }, "minItems": 1, "uniqueItems": true },
+    "architectures": { "type": "array", "items": { "enum": ["amd64", "arm64"] }, "minItems": 1, "uniqueItems": true },
+    "targets": { "type": "array", "items": { "enum": ["linux-amd64", "linux-arm64", "windows-amd64"] }, "minItems": 1, "uniqueItems": true },
+    "tofuConstraint": { "type": "string", "minLength": 1 },
+    "module": { "$ref": "#/$defs/fileRef" },
+    "readme": { "$ref": "#/$defs/fileRef" },
+    "icon": { "$ref": "#/$defs/fileRef" },
+    "archive": { "$ref": "#/$defs/archiveRef" },
+    "files": { "type": "array", "items": { "$ref": "#/$defs/fileDigest" }, "minItems": 1 },
+    "providers": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "sensitiveCapabilities": { "type": "array", "items": { "enum": ["external", "network", "filesystem-outside-xdg"] }, "uniqueItems": true, "default": [] },
+    "publishedAt": { "type": "string", "format": "date-time" },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["keyId", "algorithm", "value"],
+      "properties": {
+        "keyId": { "type": "string", "minLength": 1 },
+        "algorithm": { "const": "ed25519" },
+        "value": { "type": "string", "contentEncoding": "base64" }
+      }
+    }
+  },
+  "$defs": {
+    "fileRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^[^/].*$" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "archiveRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "size"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^[^/].*$" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "size": { "type": "integer", "minimum": 1, "maximum": 536870912 }
+      }
+    },
+    "fileDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "size"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^[^/].*$" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "size": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

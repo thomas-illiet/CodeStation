@@ -1,0 +1,56 @@
+# Node.js / TypeScript
+node_modules/
+dist/
+devkit/internal/toolchain/assets/tofu
+devkit/internal/toolchain/assets/provider
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# VS Code extension tooling
+*.vsix
+.vscode-test/
+
+# Downloaded OpenTofu toolchains
+/bin/
+
+# OpenTofu / Terraform runtime data
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+demo/keys/*.crt
+demo/keys/*.key
+demo/keys/*.pem
+keys/*.pem
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# Go build and test artifacts
+*.test
+coverage.out
+providers/
+/provider/provider
+/registry/codestation-registry
+/registry/demo-seed
+
+# IDE metadata
+.idea/
+.vscode/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db

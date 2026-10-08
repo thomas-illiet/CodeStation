@@ -1,0 +1,14 @@
+schemaVersion: 1
+namespace: core
+name: hello-codestation
+version: 1.0.0
+summary: A minimal offline CodeStation package
+description: Demonstrates the complete user-scoped lifecycle.
+publisher: CodeStation
+categories: [Development Tools]
+targets: [linux-amd64, linux-arm64, windows-amd64]
+tofuConstraint: ">= 1.8.0"
+module: main.tf
+readme: README.md
+icon: icon.svg
+sensitiveCapabilities: []

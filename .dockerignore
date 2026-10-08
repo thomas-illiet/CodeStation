@@ -1,0 +1,8 @@
+.git
+node_modules
+dist
+*.vsix
+**/.terraform
+**/*.tfstate*
+**/*.tfplan
+.DS_Store

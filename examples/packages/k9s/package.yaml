@@ -1,0 +1,14 @@
+schemaVersion: 1
+namespace: core
+name: k9s
+version: 0.51.0
+summary: Install K9s
+description: Installs the official K9s archive with a pinned digest.
+publisher: CodeStation
+categories: [CLI]
+targets: [linux-amd64, linux-arm64, windows-amd64]
+tofuConstraint: ">= 1.8.0"
+module: main.tf
+readme: README.md
+icon: icon.svg
+sensitiveCapabilities: [network]

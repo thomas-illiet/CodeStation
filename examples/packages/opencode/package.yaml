@@ -1,0 +1,14 @@
+schemaVersion: 1
+namespace: core
+name: opencode
+version: 1.18.33
+summary: Install OpenCode
+description: Installs the official OpenCode archive with a pinned digest.
+publisher: CodeStation
+categories: [CLI]
+targets: [linux-amd64, linux-arm64, windows-amd64]
+tofuConstraint: ">= 1.8.0"
+module: main.tf
+readme: README.md
+icon: icon.svg
+sensitiveCapabilities: [network]
